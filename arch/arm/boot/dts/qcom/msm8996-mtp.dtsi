@@ -44,11 +44,13 @@
 	status = "ok";
 };
 
+#if 0 // disable serial console
 &uartblsp2dm1 {
 	status = "ok";
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart_console_active>;
 };
+#endif
 
 &sdhc_1 {
 	vdd-supply = <&pm8994_l20>;
