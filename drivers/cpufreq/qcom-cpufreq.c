@@ -345,7 +345,7 @@ __setup("no_underclock", get_cpu_underclock);
 static struct cpufreq_frequency_table *cpufreq_parse_dt(struct device *dev,
 						char *tbl_name, int cpu)
 {
-	int ret = 0, nf = 0, i = 0;
+	int ret = 0, nf = 0, i = 0, j;
 	u32 *data;
 	struct cpufreq_frequency_table *ftbl;
 
@@ -388,6 +388,7 @@ static struct cpufreq_frequency_table *cpufreq_parse_dt(struct device *dev,
 	if (!ftbl)
 		return ERR_PTR(-ENOMEM);
 
+	j = 0;
 	for (i = 0; i < nf; i++) {
 		unsigned long f;
 
@@ -414,29 +415,20 @@ static struct cpufreq_frequency_table *cpufreq_parse_dt(struct device *dev,
 
 
 		/*
-		 * Check if this is the last feasible frequency in the table.
-		 *
-		 * The table listing frequencies higher than what the HW can
-		 * support is not an error since the table might be shared
-		 * across CPUs in different speed bins. It's also not
-		 * sufficient to check if the rounded rate is lower than the
-		 * requested rate as it doesn't cover the following example:
-		 *
-		 * Table lists: 2.2 GHz and 2.5 GHz.
-		 * Rounded rate returns: 2.2 GHz and 2.3 GHz.
-		 *
-		 * In this case, we can CPUfreq to use 2.2 GHz and 2.3 GHz
-		 * instead of rejecting the 2.5 GHz table entry.
+		 * Don't repeat frequencies if they round up to the same clock
+		 * frequency.
 		 */
-		if (i > 0 && f <= ftbl[i-1].frequency)
-			break;
-
-		ftbl[i].driver_data = i;
-		ftbl[i].frequency = f;
+		if (j > 0 && f <= ftbl[j - 1].frequency)
+			continue;
+ 
+ 
+		ftbl[j].driver_data = j;
+		ftbl[j].frequency = f;
+		j++;
 	}
 
-	ftbl[i].driver_data = i;
-	ftbl[i].frequency = CPUFREQ_TABLE_END;
+	ftbl[j].driver_data = j;
+	ftbl[j].frequency = CPUFREQ_TABLE_END;
 
 	devm_kfree(dev, data);
 
