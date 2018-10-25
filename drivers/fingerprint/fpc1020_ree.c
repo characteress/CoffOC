@@ -120,7 +120,7 @@ static ssize_t set_key(struct device *device,
 
 		home_pressed = home_button_pressed();
 
-		if (val && home_pressed)
+		if ((val && home_pressed) || utouch_disable)
 			val = 0;
 
 		pr_info("home key pressed = %d\n", (int)home_pressed);
