@@ -1,7 +1,6 @@
 #ifndef __CCLOGIC_COMMON_H
 #define __CCLOGIC_COMMON_H 
 
-#include <linux/wakelock.h>
 #include "cclogic-class.h"
 
 #define DEV_STAGE_DEBUG 
@@ -118,8 +117,8 @@ struct cclogic_dev	{
 	struct delayed_work	work;
 	struct delayed_work	plug_work;
 	struct cclogic_platform *platform_data;
-	struct wake_lock 	wakelock;
-	struct wake_lock 	wakelock_plug;
+	struct wakeup_source	wakelock;
+	struct wakeup_source 	wakelock_plug;
 	bool			vbus_on;
 	struct cclogic_chip *ops;
 	struct cclogic_state state;
