@@ -4080,12 +4080,6 @@ VOS_STATUS  wlan_hdd_set_powersave(hdd_adapter_t *pAdapter, int mode)
 {
    hdd_context_t *pHddCtx;
    eHalStatus status;
-   void *cookie;
-   struct hdd_request *request;
-   static const struct hdd_request_params params = {
-       .priv_size = 0,
-       .timeout_ms = WLAN_WAIT_TIME_POWER,
-   };
 
    if (NULL == pAdapter)
    {
@@ -4107,6 +4101,21 @@ VOS_STATUS  wlan_hdd_set_powersave(hdd_adapter_t *pAdapter, int mode)
 
    if (DRIVER_POWER_MODE_ACTIVE == mode)
    {
+       void *cookie;
+       struct hdd_request *request;
+       static const struct hdd_request_params params = {
+           .priv_size = 0,
+           .timeout_ms = WLAN_WAIT_TIME_POWER,
+       };
+
+       request = hdd_request_alloc(&params);
+       if (!request) {
+           hddLog(VOS_TRACE_LEVEL_ERROR,
+                  "%s: Request allocation failure", __func__);
+           return VOS_STATUS_E_NOMEM;
+       }
+       cookie = hdd_request_cookie(request);
+
        hddLog(VOS_TRACE_LEVEL_INFO_HIGH, "%s:Wlan driver Entering "
                "Full Power", __func__);
 
