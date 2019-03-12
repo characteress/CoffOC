@@ -38,6 +38,11 @@
 		qcom,mdss-dsi-border-color = <0>;
 //		qcom,mdss-dsi-panel-broadcast-mode;
 		qcom,mdss-dsi-lp11-init;
+
+		qcom,ulps-enabled;
+		qcom,panel-allow-phy-poweroff;
+		qcom,suspend-ulps-enabled;
+		
 		qcom,mdss-dsi-panel-orientation = "180";
 
 		qcom,mdss-dsi-on-command = [
