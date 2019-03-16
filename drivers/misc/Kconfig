@@ -563,6 +563,7 @@ config UID_SYS_STATS
 config USB_EXT_TYPE_C_PERICOM
 	tristate "USB Type-C charger detection support using Pericom chip"
 	depends on I2C && POWER_SUPPLY
+	default y
 	help
 	  Enables support for the USB Type-C chargers using external
 	  pericom chip connected using I2C.
@@ -573,6 +574,7 @@ config USB_EXT_TYPE_C_PERICOM
 config USB_EXT_TYPE_C_TI
 	tristate "USB Type-C charger detection support using TI chip"
 	depends on I2C && POWER_SUPPLY
+	default y
 	help
 	  Enables support for the USB Type-C chargers using external
 	  TI chip connected using I2C.
