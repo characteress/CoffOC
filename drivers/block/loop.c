@@ -855,7 +855,7 @@ static int loop_set_fd(struct loop_device *lo, fmode_t mode,
 	int		lo_flags = 0;
 	int		error;
 	loff_t		size;
-	const unsigned long allowed_cpus = 0x3;
+	const unsigned long allowed_cpus = 0x1;
 
 	/* This is safe, since we have a reference from open(). */
 	__module_get(THIS_MODULE);
