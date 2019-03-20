@@ -8,7 +8,6 @@
 };
 
 &cci {
-	/delete-node/ qcom,ois@0;
 	
 	qcom,camera@0 {
 		cell-index = <0>;
@@ -71,4 +70,7 @@
 		qcom,gpio-req-tbl-flags = <1 0>;
 		qcom,gpio-req-tbl-label = "CAMIF_MCLK0", "CAM_RESET0";
 	};
+};
+&ois0 {
+	cam_vaf-supply = <&pm8994_l21>;
 };
