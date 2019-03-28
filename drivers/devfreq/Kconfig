@@ -237,6 +237,7 @@ config DEVFREQ_SPDM
 
 config DEVFREQ_BOOST
 	bool "Devfreq Boost"
+	default y
 	help
 	  Boosts enumerated devfreq devices upon input, and allows for boosting
 	  specific devfreq devices on other custom events. The boost frequencies
@@ -246,7 +247,6 @@ config DEVFREQ_BOOST
 	  achieve optimal device performance by requesting boosts on key events,
 	  such as when a frame is ready to rendered to the display.
 
-if DEVFREQ_BOOST
 
 config DEVFREQ_INPUT_BOOST_DURATION_MS
 	int "Input boost duration"
@@ -266,6 +266,5 @@ config DEVFREQ_MSM_CPUBW_BOOST_FREQ
 	help
 	  Boost frequency for the MSM DDR bus.
 
-endif
 
 endif # PM_DEVFREQ
