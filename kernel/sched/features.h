@@ -39,14 +39,12 @@ SCHED_FEAT(WAKEUP_PREEMPTION, true)
 /*
  * Use arch dependent cpu capacity functions
  */
-
 SCHED_FEAT(ARCH_CAPACITY, true)
-
 SCHED_FEAT(ARCH_POWER, true)
 
 SCHED_FEAT(HRTICK, false)
 SCHED_FEAT(DOUBLE_TICK, false)
-SCHED_FEAT(LB_BIAS, true)
+SCHED_FEAT(LB_BIAS, false)
 
 /*
  * Decrement CPU capacity based on time not spent running tasks
@@ -87,6 +85,4 @@ SCHED_FEAT(NUMA_FAVOUR_HIGHER, true)
 SCHED_FEAT(NUMA_RESIST_LOWER, false)
 #endif
 
-#ifdef CONFIG_SCHED_QHMP
-SCHED_FEAT(FORCE_CPU_THROTTLING_IMMINENT, false)
-#endif
+SCHED_FEAT(FORCE_CPU_THROTTLING_IMMINENT, true)
